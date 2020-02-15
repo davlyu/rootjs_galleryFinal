@@ -194,4 +194,5 @@ $("img#modalImage").click(function(){
 
 function displayImage(event){
 var imagePath = $("currentTarget").attr("id","gallery");
+imagePath.slice()
 }
