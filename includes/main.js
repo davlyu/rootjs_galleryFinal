@@ -50,7 +50,7 @@ var pictures = [
 function initiateApp(){
 	/*BONUS FUNCTIONALITY: add jquery sortable call here to allow resorting of the images
 		//on change, rebuild the images array into the newly sorted order
-		Documentation: http://api.jqueryui.com/sortable/
+		Documentation: http://api.jqueryui.com/sortable/ code: ".sortable()"
 		Example or sorting in action: https://jqueryui.com/sortable/
 	*/
 	makeGallery(pictures);
@@ -67,35 +67,35 @@ function initiateApp(){
  *    `displayImage` function.
  *  - Append the completed `figure` elements to the `section` with the id of `gallery`.
  * ** Specifications **
- * - Takes one parameter:
- *   - imageArray - which will be the `pictures` array that contains all of the image paths.
- * - Within the function:
- *   - Use a for loop to go through the image array
- *   - Within the loop:
- *     - Use jQuery to create the following HTML elements and store them in variables:
- * 	     - a `figure` element with the following attributes:
- *         - class - imageGallery col-xs-12 col-sm-6 col-md-4
- *           - note: the above are CSS and bootstrap classes for styling purposes
- *         - imgPath:
- * 		     - Assign this attribute the path in the array which matches the current index of the loop!
- * 		       - Note: This is a custom attribute you will create in order to store the image path
- *                     which is being used for the background image. You are doing this so when you
- *                     need to update the image in the modal, you can easily retrieve the image path!
- *         - Also, Give the `figure` element a background image:
- *           - Hint: the path for the background image should be the path in the image array
- *             which corresponds to the current index of the loop
- *           - Hint: the jQuery .css() method can be very helpful here!
- *       - a `figcaption` element with text in it:
- * 			 - the text should be the name of the image which is in the path, but only the image name.
- *             - Example image 'images/landscape-1.jpg'
- *             - Example Title 'landscape-1'
- *           - Hint: The .slice() and .indexOf() methods can be very useful
- *                   as you need to select and save only a part of the paths to get
- *                   title from the path
- *    - Append the `figure` and `figcaption` elements into the correct HTML structure
- *      - the `figcaption` is a child of the `figure`
- *    - Add a click handler to the `figure` element which calls the `displayImage` function on click.
- *    - Append the completed HTML structure to the `section` element with the id of `gallery`
+ * // - Takes one parameter:
+	// *   - imageArray - which will be the `pictures` array that contains all of the image paths. X
+	// * - Within the function:
+	// *   - Use a for loop to go through the image array
+	// *   - Within the loop:
+	// *     - Use jQuery to create the following HTML elements and store them in variables:X
+	// * 	     - a `figure` element with the following attributes:
+	// *         - class - imageGallery col-xs-12 col-sm-6 col-md-4
+	// *           - note: the above are CSS and bootstrap classes for styling purposes
+	// *         - imgPath:
+	// * 		     - Assign this attribute the path in the array which matches the current index of the loop!
+	// * 		       - Note: This is a custom attribute you will create in order to store the image path
+	// *                     which is being used for the background image. You are doing this so when you
+	// *                     need to update the image in the modal, you can easily retrieve the image path!
+	// *         - Also, Give the `figure` element a background image:
+	// *           - Hint: the path for the background image should be the path in the image array
+	// *             which corresponds to the current index of the loop
+	// *           - Hint: the jQuery .css() method can be very helpful here!
+	// *       - a `figcaption` element with text in it:
+	// * 			 - the text should be the name of the image which is in the path, but only the image name.
+	// *             - Example image 'images/landscape-1.jpg'
+	// *             - Example Title 'landscape-1'
+	// *           - Hint: The .slice() and .indexOf() methods can be very useful
+	// *                   as you need to select and save only a part of the paths to get
+	// *                   title from the path
+	// *    - Append the `figure` and `figcaption` elements into the correct HTML structure
+	// *      - the `figcaption` is a child of the `figure`
+	// *    - Add a click handler to the `figure` element which calls the `displayImage` function on click.
+	// *    - Append the completed HTML structure to the `section` element with the id of `gallery`
  *
  * - Considerations
  *   - How do you use .css() to set the background image property for the `figure` element?
@@ -111,7 +111,16 @@ function initiateApp(){
  **/
 
 function makeGallery(imageArray){
+	for(var image = 0; image < imageArray.length; image++){
+	var addImage = $("<figure>").addClass("imageGallery", "col-xs-12", "col-sm-6","col-md-4");
+	
+	var imageBackground = addImage.css("background-image","url(" + imageArray[image] +")");
+	var figCaption = $("<figcaption>").text(imageArray[image].slice(imageArray[image].indexOf("/")+1,imageArray[image].indexOf(".")))
+	$("body").append(imageBackground.append(figCaption));
+	
 
+	}
+	$("figure").on("click",displayImage);
 	}
 
 	/**
@@ -140,7 +149,9 @@ function makeGallery(imageArray){
  */
 
 function addModalCloseHandler(){
-
+$("img#modalImage").click(function(){
+	$("div#galleryModal").modal("hide")
+})
 }
 
 /**
@@ -181,6 +192,6 @@ function addModalCloseHandler(){
  *   - https://www.w3schools.com/bootstrap/bootstrap_ref_js_modal.asp (Check the Modal Methods section)
  */
 
-function displayImage(){
-
+function displayImage(event){
+var imagePath = $("currentTarget").attr("id","gallery");
 }
